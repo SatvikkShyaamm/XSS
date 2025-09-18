@@ -1,0 +1,30 @@
+<body>
+    <h2>Welcome to the Challenge 🚩</h2>
+  <p>Submit your payload below (note: &lt;script&gt; tags are blocked):</p>
+
+
+<form id="payloadForm">
+  <input type="text" id="userInput" placeholder="Enter your payload" size="50">
+  <button type="submit">Submit</button>
+</form>
+
+<div id="output"></div>
+
+<script>
+  const form = document.getElementById("payloadForm");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const payload = document.getElementById("userInput").value;
+
+    const res = await fetch("/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `payload=${encodeURIComponent(payload)}`
+    });
+
+    const text = await res.text();
+    alert(text); // the server sends the flag only when condition matches
+  });
+</script>
+
+</body>
